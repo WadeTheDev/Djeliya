@@ -1,21 +1,38 @@
-"use client"
-import ArticleCard from '@/components /Common/ArticleCard/ArticleCard';
-import styles from './HomeTemplate.module.scss';
-import NewsLetter from '@/components /Common/NewsLetter/NewsLetter';
-import RoundButton from '@/components /Common/RoundButton /RoundButton';
-import SquareButton from '@/components /Common/SquareButton/SquareButton';
-import FAQAccordion, { FAQItem } from '@/components /Common/FAQAccordion/FAQAccordion';
-import AvisSlider from '@/components /AvisSlider/AvisSlider';
-import { avis } from '@/mock/avis';
-import { productsMock } from '@/mock/products';
-import { useTransitionRouter } from 'next-view-transitions';
-import { slideInOut } from '@/animations';
-import { Lenis } from 'lenis/react';
+"use client";
 
+import ArticleCard from "@/components /Common/ArticleCard/ArticleCard";
+import styles from "./HomeTemplate.module.scss";
+import NewsLetter from "@/components /Common/NewsLetter/NewsLetter";
+import SquareButton from "@/components /Common/SquareButton/SquareButton";
+import FAQAccordion, { FAQItem } from "@/components /Common/FAQAccordion/FAQAccordion";
+import AvisSlider from "@/components /AvisSlider/AvisSlider";
+import { avis } from "@/mock/avis";
+import { productsMock } from "@/mock/products";
+import { useTransitionRouter } from "next-view-transitions";
+import { slideInOut, zoomTransition } from "@/animations";
+import { Lenis } from "lenis/react";
+import { useEffect, useState } from "react";
+import Reveal from "@/components /Common/Reveal/Reveal";
+import { motion } from "framer-motion";
+import RoundButton from "@/components /Common/RoundButton /RoundButton";
+
+const staggerContainer = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
+};
+
+const cardItem = {
+  hidden: { opacity: 0, y: 16 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+  },
+};
 
 const HomeTemplate = () => {
-
   const router = useTransitionRouter();
+  const [delay, setDelay] = useState(0.3); // Default delay
 
   const faq: FAQItem[] = [
     { question: "Question", answer: "Réponse 1..." },
@@ -26,78 +43,118 @@ const HomeTemplate = () => {
 
   const thirdFirstProducts = productsMock.slice(0, 3);
 
+  useEffect(() => {
+    const isHardRefresh = performance.navigation.type === performance.navigation.TYPE_RELOAD;
+    const referrer = document.referrer;
+
+    if (isHardRefresh || !referrer) {
+      setDelay(0.3);
+    } else {
+      setDelay(0.9);
+    }
+  }, []);
+
+  //c'est un hard refresh, on met un delay de 0.3s sinon 0.9s 
+
+
   return (
     <Lenis root>
       <main className={styles.mainContainer}>
         <section className={styles.firstSection}>
           <div className={styles.marquee} aria-hidden="true">
             <div className={styles.track}>
-              <span>Djeliya - Djeliya - Djeliya - Djeliya - Djeliya - Djeliya - Djeliya  </span>
-              <span>Djeliya - Djeliya - Djeliya - Djeliya - Djeliya - Djeliya - Djeliya  </span>
+              <span>Djeliya - Djeliya - Djeliya - Djeliya - Djeliya - Djeliya - Djeliya </span>
+              <span>Djeliya - Djeliya - Djeliya - Djeliya - Djeliya - Djeliya - Djeliya </span>
             </div>
           </div>
 
-          <div className={styles.citation}>
-            <p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.“</p>
+          <Reveal className={styles.citation} y={22} delay={0.3}>
+            <p>
+              “Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua.“
+            </p>
             <RoundButton
-              href='/shop'
-              text='Découvrir'
+              href="/shop"
+              text="Découvrir"
               onClick={(e) => {
                 e.preventDefault();
                 router.push("/shop", { onTransitionReady: slideInOut });
-              }} />
-          </div>
+              }}
+            />
+          </Reveal>
         </section>
 
         <section className={styles.articlesSection}>
-          <div className={styles.articlesContainer}>
+          <motion.div
+            className={styles.articlesContainer}
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.25 }}
+          >
             {thirdFirstProducts.map((product) => (
-              <div key={product.name} className={styles.card}>
+              <motion.div key={product.id} className={styles.card} variants={cardItem}>
                 <ArticleCard
                   href={`/product/${product.id}`}
-                  key={product.id}
                   title={product.name}
-                  price={product.price.toFixed(2) + '€'}
+                  price={product.price.toFixed(2) + "€"}
                   imageUrl={"/img/ProductImage.png"}
                   isNew={product.isNew}
                   onClick={(e) => {
                     e.preventDefault();
-                    router.push(`/product/${product.id}`, { onTransitionReady: slideInOut });
+                    router.push(`/product/${product.id}`, { onTransitionReady: zoomTransition });
                   }}
                 />
-              </div>
+              </motion.div>
             ))}
-          </div>
-          <div className={styles.textSection}>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in vo</p>
+          </motion.div>
+
+          <Reveal className={styles.textSection} delay={0.05} y={18}>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+              ut labore et dolore magna aliqua...
+            </p>
             <SquareButton
-              href='/shop'
-              text='Découvrir' onClick={(e) => {
+              href="/shop"
+              text="Découvrir"
+              onClick={(e) => {
                 e.preventDefault();
                 router.push("/shop", { onTransitionReady: slideInOut });
-              }} />
-          </div>
+              }}
+            />
+          </Reveal>
         </section>
 
         <section className={styles.aboutSection}>
-          <img src="/img/HomeAbout.png" alt="" />
-          <div className={styles.textContainer}>
+          <Reveal y={18}>
+            <img src="/img/HomeAbout.png" alt="" />
+          </Reveal>
+
+          <Reveal className={styles.textContainer} delay={0.08} y={22}>
             <h2>“Lorem ipsum dolor sit amet, consectetur adipiscing elit“</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <SquareButton href='/about' text='En savoir plus' onClick={() => { console.log('') }} />
-          </div>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+              ut labore et dolore magna aliqua...
+            </p>
+            <SquareButton href="/about" text="En savoir plus" onClick={() => { }} />
+          </Reveal>
         </section>
 
-
-        <AvisSlider title="Ils en parlent" items={avis} />
+        <Reveal y={18}>
+          <AvisSlider title="Ils en parlent" items={avis} />
+        </Reveal>
 
         <section className={styles.footerSection}>
-          <NewsLetter />
-          <FAQAccordion items={faq} defaultOpenIndex={null} allowMultiple={false} />
+          <Reveal y={18}>
+            <NewsLetter />
+          </Reveal>
+          <Reveal y={18} delay={0.05}>
+            <FAQAccordion items={faq} defaultOpenIndex={null} allowMultiple={false} />
+          </Reveal>
         </section>
-
       </main>
     </Lenis>
   );
 };
+
 export default HomeTemplate;

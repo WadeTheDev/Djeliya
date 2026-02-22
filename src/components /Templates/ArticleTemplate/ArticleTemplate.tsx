@@ -6,7 +6,7 @@ import { Product } from "@/types/product";
 import styles from "./ArticleTemplate.module.scss";
 import { Lenis } from 'lenis/react';
 import { useTransitionRouter } from "next-view-transitions";
-import { slideInOut } from "@/animations";
+import { slideInOut, zoomTransition } from "@/animations";
 import { useCartStore } from "@/store/cart.store";
 
 type ArticleTemplateProps = {
@@ -100,7 +100,7 @@ const ArticleTemplate = ({ product }: ArticleTemplateProps) => {
                 <span
                   onClick={(e) => {
                     e.preventDefault();
-                    router.push("/shop", { onTransitionReady: slideInOut });
+                    router.push("/shop", { onTransitionReady: zoomTransition });
                   }}
                 >
                   Retour

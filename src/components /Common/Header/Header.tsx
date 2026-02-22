@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./Header.module.scss";
 import RoundButton from "../HeaderButton/RoundButton";
 import { Link, useTransitionRouter } from "next-view-transitions";
@@ -8,6 +8,7 @@ import { slideInOut } from "@/animations";
 import { useCartStore } from "@/store/cart.store";
 import { flipAnimate } from "@/utils/flip";
 import CartPanel from "@/components /CartPanel/CartPanel";
+import { usePathname, useSearchParams } from "next/navigation";
 
 type CartPhase = "closed" | "opening" | "open" | "closing";
 
@@ -117,6 +118,28 @@ const Header = () => {
 
   const cartVisible = cartPhase === "open";
 
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // URL courante (path + query)
+  const currentUrl = `${pathname}${searchParams?.toString() ? `?${searchParams.toString()}` : ""}`;
+
+  const safePush = useCallback(
+    (to: string, opts?: { compareQuery?: boolean }) => {
+      // compareQuery: false => compare uniquement le pathname (souvent ce que tu veux pour /shop, /about, /)
+      const compareQuery = opts?.compareQuery ?? false;
+
+      const cur = compareQuery ? currentUrl : pathname;
+      const target = compareQuery ? to : to.split("?")[0];
+
+      if (cur === target) return; // ✅ déjà dessus → pas de navigation
+
+      router.push(to, { onTransitionReady: slideInOut });
+    },
+    [router, pathname, currentUrl]
+  );
+
+
   return (
     <header className={`${styles.mainContainer} ${cartOpen ? styles.mainContainerCart : ""}`}>
       {/* overlay */}
@@ -142,7 +165,7 @@ const Header = () => {
             <Link
               onClick={(e) => {
                 e.preventDefault();
-                router.push("/shop", { onTransitionReady: slideInOut });
+                safePush("/shop"); // compare pathname only
               }}
               scroll={false}
               href="/shop"
@@ -153,7 +176,7 @@ const Header = () => {
             <Link
               onClick={(e) => {
                 e.preventDefault();
-                router.push("/about", { onTransitionReady: slideInOut });
+                safePush("/about"); // compare pathname only
               }}
               scroll={false}
               href="/about"
@@ -165,7 +188,7 @@ const Header = () => {
           <Link
             onClick={(e) => {
               e.preventDefault();
-              router.push("/", { onTransitionReady: slideInOut });
+              safePush("/"); // compare pathname only
             }}
             scroll={false}
             href="/"
@@ -293,7 +316,7 @@ const Header = () => {
           variant="secondary"
           onClick={(e) => {
             e.preventDefault();
-            router.push("/auth", { onTransitionReady: slideInOut });
+            safePush("/auth"); // compare pathname only
           }}
         />
       </div>

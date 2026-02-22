@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import styles from "./AuthPage.module.scss";
 import { Lenis } from 'lenis/react';
+import Reveal from "@/components /Common/Reveal/Reveal";
 
 type Mode = "login" | "register";
 
@@ -37,7 +38,7 @@ export default function AuthPage() {
   return (
     <Lenis root>
       <main className={styles.page}>
-        <section className={styles.card} aria-label={copy.title}>
+        <Reveal delay={0.4} y={22} className={styles.card} aria-label={copy.title}>
           <h1 className={styles.title}>{copy.title}</h1>
           <p className={styles.subtitle}>{copy.text}</p>
 
@@ -89,7 +90,7 @@ export default function AuthPage() {
             {copy.cta}
           </button>
 
-        </section>
+        </Reveal>
       </main>
     </Lenis>
   );

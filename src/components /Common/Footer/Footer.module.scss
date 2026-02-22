@@ -1,0 +1,175 @@
+/** @format */
+
+.footer {
+  width: 100%;
+  padding: 48px 30px;
+  color: #fffdf5;
+
+  /* fond comme ta capture (texture) */
+  background: url("/img/footerTexture.png") center/cover no-repeat;
+}
+
+.inner {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.2fr 2.2fr 0.6fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* -------- Col gauche -------- */
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.brand {
+  font-family: "TAN Nimbus", serif;
+  font-size: 24px;
+  font-weight: 300;
+  color: #fffdf5;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.legal {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* -------- Colonnes centrales -------- */
+.cols {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(140px, 1fr));
+  gap: 60px;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.colTitle {
+  margin: 0;
+  font-family: "Kantumruy Pro", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #fffdf5;
+}
+
+.colLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Liens */
+.link {
+  font-family: "Kantumruy Pro", sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(255, 253, 245, 0.95);
+  text-decoration: none;
+  width: fit-content;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* -------- Réseaux -------- */
+.socialCol {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.social {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.iconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.iconBtn img {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+/* =========================
+   Responsive
+======================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .inner {
+    grid-template-columns: 1fr 1.6fr;
+    row-gap: 30px;
+  }
+
+  .socialCol {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+  }
+
+  .cols {
+    gap: 40px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .footer {
+    padding: 34px 18px;
+  }
+
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .brandCol {
+    gap: 18px;
+  }
+
+  .brand {
+    font-size: 30px;
+  }
+
+  /* Colonnes en 2 */
+  .cols {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 26px;
+  }
+
+  .socialCol {
+    justify-content: flex-start;
+  }
+}
+
+/* Très petit */
+@media (max-width: 480px) {
+  .cols {
+    grid-template-columns: 1fr; /* 1 colonne */
+    gap: 22px;
+  }
+
+  .colTitle {
+    font-size: 13px;
+  }
+
+  .link {
+    font-size: 13px;
+  }
+}

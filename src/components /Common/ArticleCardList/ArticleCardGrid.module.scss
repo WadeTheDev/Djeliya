@@ -1,0 +1,35 @@
+/** @format */
+
+.wrapper {
+  width: 100%;
+}
+
+.title {
+  font-family: "Kantumruy Pro", sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #7d1607;
+  margin: 0 0 18px 0;
+}
+
+.grid {
+  display: grid;
+  gap: 22px;
+
+  /* Desktop/tablette : auto, cartes qui restent “card-like” */
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+@media (max-width: 768px) {
+  .grid {
+    gap: 16px;
+    grid-template-columns: repeat(2, 1fr); /* ✅ 2 cards par ligne */
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    gap: 12px;
+    grid-template-columns: repeat(2, 1fr); /* ✅ toujours 2 */
+  }
+}

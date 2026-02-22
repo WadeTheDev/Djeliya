@@ -1,0 +1,889 @@
+/** @format */
+
+.viewport {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #fffdf5;
+}
+
+.track {
+  display: flex;
+  width: 300vw;
+  height: 100%;
+  transition: transform 0.85s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.slide {
+  width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
+  position: relative;
+}
+
+/* ---------------------- SLIDE 01 (Mock-like) ---------------------- */
+.slide1 {
+  display: grid;
+  grid-template-columns: minmax(260px, 420px) minmax(340px, 1fr) minmax(
+      280px,
+      420px
+    );
+  align-items: center;
+  column-gap: clamp(22px, 3vw, 64px);
+  padding: 120px 40px 0px;
+  background: #fffdf5;
+
+  /* faint oversized watermark feeling (optional, super subtle) */
+  &::before {
+    content: "Djeliya";
+    position: absolute;
+    left: 50%;
+    top: 53%;
+    transform: translate(-50%, -50%);
+    font-family: "TAN Nimbus", serif;
+    font-size: min(30vw, 520px);
+    letter-spacing: 0.02em;
+    color: rgba(125, 22, 7, 0.04);
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+    opacity: 0.4;
+  }
+}
+
+.left {
+  z-index: 1;
+  justify-self: start;
+  max-width: 420px;
+}
+.chevron {
+  width: 8px;
+  height: 8px;
+  border-left: 2px solid #550d02;
+  border-bottom: 2px solid #550d02;
+  transform: rotate(45deg);
+  display: inline-block;
+}
+.goBack {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 12px;
+  cursor: pointer;
+  color: #550d02;
+  font-family: "Kantumruy Pro", sans-serif;
+  font-weight: 500;
+}
+
+.title {
+  font-family: "Judson", serif;
+  font-style: italic;
+  font-weight: 400;
+  margin: 18px 0;
+  color: #550d02;
+  font-size: clamp(30px, 3.2vw, 56px);
+  line-height: 1.05;
+}
+
+.starsRow {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 18px;
+}
+
+.star {
+  font-size: 18px;
+  position: relative;
+  line-height: 1;
+}
+
+/* étoile pleine */
+.full {
+  color: #550d02;
+}
+
+/* étoile vide */
+.empty {
+  color: rgba(125, 22, 7, 0.25);
+}
+
+/* demi-étoile */
+.half {
+  color: rgba(125, 22, 7, 0.25);
+
+  &::before {
+    content: "★";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    overflow: hidden;
+    color: #550d02;
+  }
+}
+
+.quote {
+  margin: 0;
+  max-width: 340px;
+  font-family: "Judson", serif;
+  font-style: italic;
+  font-weight: 400;
+  color: rgba(45, 30, 26, 0.85);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.center {
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.packaging {
+  width: min(250px, 34vw);
+  height: auto;
+  object-fit: contain;
+  transform: translateY(8px);
+  user-select: none;
+  pointer-events: none;
+}
+
+.right {
+  z-index: 1;
+  justify-self: end;
+  width: 100%;
+  max-width: 420px;
+}
+
+.progress {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.progressTrack {
+  height: 2px;
+  width: 100%;
+  background: rgba(125, 22, 7, 0.18);
+}
+
+.progressFill {
+  height: 100%;
+  background: #550d02;
+  width: 0%;
+  transition: width 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.qtyWeight {
+  justify-content: space-between;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-family: "Kantumruy Pro", sans-serif;
+  color: rgba(45, 30, 26, 0.85);
+  font-size: 13px;
+}
+
+.qtyLabel {
+  opacity: 0.9;
+}
+
+.qtyValue {
+  font-weight: 500;
+}
+
+.short {
+  margin: 0 0 18px;
+  font-family: "Kantumruy Pro", sans-serif;
+  font-size: 12px;
+  line-height: 1.6;
+  color: rgba(45, 30, 26, 0.8);
+}
+
+.stepperRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  font-family: "Kantumruy Pro", sans-serif;
+  color: rgba(45, 30, 26, 0.85);
+}
+
+.stepperBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid rgba(45, 30, 26, 0.18);
+  background: rgba(255, 253, 245, 0.9);
+  color: rgba(45, 30, 26, 0.85);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  line-height: 1;
+}
+
+.stepperValue {
+  width: 18px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.cta {
+  width: 100%;
+  height: 44px;
+  border: 0;
+  border-radius: 7px;
+  background: #550d02;
+  color: #fffdf5;
+  cursor: pointer;
+  font-family: "Kantumruy Pro", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+/* big right arrow, very minimal */
+.nextArrow {
+  right: 34px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  z-index: 2;
+
+  &::before {
+    content: "→";
+    display: block;
+    font-size: 22px;
+    color: rgba(45, 30, 26, 0.8);
+    line-height: 44px;
+    text-align: center;
+  }
+}
+
+/* ---------------------- SLIDE 02 (Mock-like) ---------------------- */
+.slide2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+  background: #fffdf5;
+}
+
+/* LEFT */
+.s2Left {
+  position: relative;
+  padding: 120px 56px 56px; /* cohérent avec ta slide 1 (padding top) */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.s2Top {
+  position: absolute;
+  top: 56px;
+  left: 56px;
+  right: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.s2ProgressWrap {
+  flex: 1;
+  margin-right: 22px;
+  max-width: 520px;
+}
+
+.s2ProgressTrack {
+  height: 2px;
+  width: 100%;
+  background: rgba(125, 22, 7, 0.18);
+}
+
+.s2ProgressFill {
+  height: 100%;
+  background: #550d02;
+  transition: width 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.s2Arrows {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.s2ArrowBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  color: rgba(45, 30, 26, 0.8);
+}
+
+.s2ArrowBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.s2Content {
+  max-width: 560px;
+}
+
+.s2Title {
+  font-family: "Judson", serif;
+  font-style: italic;
+  font-weight: 400;
+  color: #550d02;
+  margin: 0 0 16px;
+  font-size: clamp(28px, 2.4vw, 44px);
+  line-height: 1.15;
+
+  /* lisibilité : si la description est longue */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.s2Text {
+  margin: 0 0 28px;
+  font-family: "Kantumruy Pro", sans-serif;
+  font-size: 12px;
+  line-height: 1.65;
+  color: rgba(45, 30, 26, 0.75);
+  max-width: 520px;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.s2Bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.s2Index {
+  font-family: "Judson", serif;
+  font-size: 40px;
+  color: rgba(125, 22, 7, 0.9);
+}
+
+.s2Cta {
+  width: min(520px, 100%);
+  height: 48px;
+  border: 0;
+  border-radius: 7px;
+  background: #550d02;
+  color: #fffdf5;
+  cursor: pointer;
+  font-family: "Kantumruy Pro", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+/* RIGHT */
+.s2Right {
+  position: relative;
+  overflow: hidden;
+}
+
+.s2Image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* peu importe l'image -> elle remplit */
+  display: block;
+}
+
+/* overlay discrète desktop, forte mobile */
+.s2ImageOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  /* desktop : léger pour garder l’appétence */
+  background: linear-gradient(
+    90deg,
+    rgba(255, 253, 245, 0) 0%,
+    rgba(255, 253, 245, 0) 55%,
+    rgba(255, 253, 245, 0.12) 100%
+  );
+}
+
+/* ---------------------- SLIDE 03 (Mock-like) ---------------------- */
+.slide3 {
+  background: #fffdf5;
+  padding: 120px 40px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+
+  /* watermark léger, comme slide 1/2 */
+  &::before {
+    content: "Djeliya";
+    position: absolute;
+    left: 65%;
+    top: 58%;
+    transform: translate(-50%, -50%);
+    font-family: "TAN Nimbus", serif;
+    font-size: min(32vw, 520px);
+    letter-spacing: 0.02em;
+    color: rgba(125, 22, 7, 0.035);
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+    opacity: 0.4;
+  }
+}
+
+/* Header */
+.s3Header {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 18px;
+}
+
+.s3Title {
+  margin: 0;
+  font-family: "Judson", serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 28px;
+  color: #550d02;
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.s3Index {
+  font-style: italic;
+}
+
+.s3HeaderLine {
+  height: 2px;
+  width: 100%;
+  background: rgba(125, 22, 7, 0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+.s3ProgressFill {
+  height: 100%;
+  background: #550d02;
+  transition: width 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.s3Arrows {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.s3ArrowBtn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 22px;
+  color: rgba(45, 30, 26, 0.8);
+}
+
+.s3ArrowBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* Body */
+.s3Body {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(420px, 1fr) minmax(380px, 520px);
+  gap: 34px;
+  align-items: start;
+}
+
+/* Left column */
+.s3Left {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+
+.s3ImageWrap {
+  width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  background: rgba(45, 30, 26, 0.06);
+}
+
+.s3Image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.s3Cta {
+  width: 100%;
+  height: 48px;
+  border: 0;
+  border-radius: 7px;
+  background: #550d02;
+  color: #fffdf5;
+  cursor: pointer;
+  font-family: "Kantumruy Pro", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+/* Right column (details) */
+.s3Right {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.s3BlockTitle {
+  margin: 0 0 8px;
+  font-family: "Kantumruy Pro", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #550d02;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.s3List {
+  margin: 0;
+  padding-left: 18px;
+  font-family: "Kantumruy Pro", sans-serif;
+  font-size: 12px;
+  line-height: 1.65;
+  color: rgba(45, 30, 26, 0.78);
+}
+
+.s3Text {
+  margin: 0;
+  font-family: "Kantumruy Pro", sans-serif;
+  font-size: 12px;
+  line-height: 1.65;
+  color: rgba(45, 30, 26, 0.78);
+}
+
+/* ---------------------- Responsive ---------------------- */
+@media (max-width: 1024px) {
+  .slide {
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* évite que le contenu colle en bas */
+  .slide1 {
+    height: 100%;
+    align-content: start;
+  }
+  .slide1 {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    row-gap: 18px;
+    justify-items: center;
+    padding: 126px 18px 40px;
+
+    &::before {
+      top: 45%;
+      font-size: 52vw;
+    }
+  }
+
+  .left {
+    max-width: 560px;
+    text-align: left;
+    justify-self: center;
+    width: 100%;
+  }
+
+  .center {
+    width: 100%;
+  }
+
+  .packaging {
+    width: min(220px, 70vw);
+    transform: none;
+  }
+
+  .right {
+    justify-self: center;
+    max-width: 560px;
+    width: 100%;
+  }
+
+  .info {
+    max-width: 560px;
+  }
+
+  .nextArrow {
+    right: 14px;
+  }
+
+  .slide2 {
+    grid-template-columns: 1fr;
+  }
+
+  /* on met l'image en fond plein écran */
+  .s2Right {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .s2Left {
+    z-index: 1;
+    padding: 150px 18px 28px;
+    justify-content: flex-start;
+    height: 100%;
+  }
+
+  .s2Top {
+    background: rgba(255, 253, 245, 0.7);
+    border: 1px solid rgba(45, 30, 26, 0.08);
+    border-radius: 6px;
+    backdrop-filter: blur(6px);
+    padding: 12px 16px;
+    top: 140px;
+    left: 18px;
+    right: 18px;
+  }
+
+  .s2Content {
+    margin-top: 68px;
+    max-width: 680px;
+  }
+
+  /* “carte” de texte pour assurer la lisibilité même sur images ultra contrastées */
+  .s2Content {
+    background: rgba(255, 253, 245, 0.7);
+    border: 1px solid rgba(45, 30, 26, 0.08);
+    border-radius: 6px;
+    padding: 18px 16px;
+    backdrop-filter: blur(6px);
+  }
+
+  .s2Bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .s2Cta {
+    width: 100%;
+  }
+
+  .s2Index {
+    font-size: 34px;
+  }
+
+  .slide3 {
+    padding: 150px 18px 28px;
+  }
+
+  .s3Body {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  /* ✅ C’est la contrainte demandée */
+  .s3Left {
+    display: none;
+  }
+
+  /* détails en “cartes” pour lisibilité */
+  .s3Right {
+    gap: 14px;
+  }
+
+  .s3Block {
+    background: rgba(255, 253, 245, 0.7);
+    border: 1px solid rgba(45, 30, 26, 0.08);
+    border-radius: 6px;
+    padding: 14px 14px;
+    backdrop-filter: blur(6px);
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 32px;
+  }
+
+  .quote {
+    max-width: 320px;
+    font-size: 14px;
+  }
+
+  .cta {
+    height: 46px;
+  }
+
+  .s2Title {
+    -webkit-line-clamp: 3;
+  }
+
+  .s2Text {
+    -webkit-line-clamp: 7;
+  }
+}
+
+/* ---------------------- Slide 02/03 placeholders ---------------------- */
+.slide2,
+.slide3 {
+  display: grid;
+  place-items: center;
+  background: #fffdf5;
+}
+
+.placeholder {
+  font-family: "Kantumruy Pro", sans-serif;
+  color: rgba(45, 30, 26, 0.6);
+}
+
+.navLeft,
+.navRight {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(45, 30, 26, 0.16);
+  background: rgba(255, 253, 245, 0.85);
+  border-radius: 999px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.navLeft {
+  left: 18px;
+}
+
+.navRight {
+  right: 18px;
+}
+
+/* ---------------------- Slide content transition (enter/leave) ---------------------- */
+
+/* classes posées sur les <section> */
+.isEntering,
+.isLeaving {
+  /* évite du flou/lag pendant transform */
+  will-change: transform, opacity;
+}
+
+.dirNext {
+  --slide-dir: 1;
+} /* va vers la droite (index + 1) */
+.dirPrev {
+  --slide-dir: -1;
+} /* va vers la gauche (index - 1) */
+
+/* Tu peux ajuster ces valeurs */
+.slide {
+  --shift-sm: 14px;
+  --shift-md: 22px;
+  --shift-lg: 34px;
+}
+
+/* on anime seulement certains blocs (tu peux compléter la liste) */
+.slide
+  :is(.left, .center, .right, .s2Left, .s2Right, .s3Header, .s3Right, .s3Left) {
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease;
+}
+
+/* --- sortant : part un peu avant dans le sens inverse du swipe --- */
+.isLeaving :is(.left, .s2Left, .s3Right) {
+  transform: translateX(calc(var(--slide-dir) * -1 * var(--shift-lg)));
+  opacity: 0;
+}
+
+/* l’image peut bouger différemment (effet plus “riche”) */
+.isLeaving :is(.center, .s2Right, .s3Left) {
+  transform: translateX(calc(var(--slide-dir) * -1 * var(--shift-md)))
+    scale(0.98);
+  opacity: 0;
+}
+
+/* --- entrant : arrive depuis le sens du swipe puis se pose --- */
+.isEntering :is(.left, .s2Left, .s3Right) {
+  transform: translateX(calc(var(--slide-dir) * var(--shift-md)));
+  opacity: 0;
+}
+
+/* on “repose” automatiquement : quand .isEntering n’est plus là, retour transform:none/opacity:1 */
+/* MAIS pour que l’entrant se pose PENDANT le slide, on force un micro delay */
+.isEntering
+  :is(.left, .center, .right, .s2Left, .s2Right, .s3Header, .s3Right, .s3Left) {
+  transition-delay: 0.08s;
+}
+
+/* option : header slide3 un peu moins fort */
+.isLeaving .s3Header,
+.isEntering .s3Header {
+  transform: translateX(calc(var(--slide-dir) * 1px * 10));
+}
+
+/* ---------------------- Page intro (safe) ---------------------- */
+
+/* On ne touche aux transforms/opacities QUE pendant l’intro */
+.intro
+  .slide
+  :is(.left, .center, .right, .s2Left, .s2Right, .s3Header, .s3Left, .s3Right) {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+/* Pendant l’intro : on révèle, MAIS on évite de casser enter/leave */
+.intro
+  .slide:not(.isEntering):not(.isLeaving)
+  :is(.left, .center, .right, .s2Left, .s2Right, .s3Header, .s3Left, .s3Right) {
+  animation: introReveal 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* petit stagger sur la slide 1 (optionnel) */
+.intro .slide1 .left {
+  animation-delay: 0.08s;
+}
+.intro .slide1 .center {
+  animation-delay: 0.16s;
+}
+.intro .slide1 .right {
+  animation-delay: 0.24s;
+}
+
+@keyframes introReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

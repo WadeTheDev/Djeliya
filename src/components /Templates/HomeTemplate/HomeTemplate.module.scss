@@ -1,0 +1,280 @@
+/** @format */
+
+.mainContainer {
+  padding: 0 30px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .firstSection {
+    padding: 120px 0 0;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .citation {
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 30px;
+
+      p {
+        font-family: "Judson", serif;
+        font-size: 20px;
+        text-align: center;
+        font-weight: 300;
+        font-style: italic;
+        color: #000;
+        margin: 0;
+      }
+    }
+  }
+
+  .marquee {
+    position: absolute;
+    overflow: hidden;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.02;
+  }
+
+  .track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+    animation: marquee 90s linear infinite;
+  }
+
+  .track span {
+    white-space: nowrap;
+    font-family: "TAN Nimbus", serif;
+    font-size: clamp(160px, 30vw, 520px);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: #000;
+  }
+
+  .articlesSection {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    gap: 24px;
+
+    .articlesContainer {
+      width: 100%;
+      display: flex;
+      gap: 8px;
+
+      h2 {
+        font-family: "Kantumruy Pro", sans-serif;
+        font-size: 24px;
+        font-weight: 500;
+        color: #7d1607;
+        margin: 0;
+      }
+
+      .card {
+        width: 280px;
+      }
+    }
+
+    .textSection {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      p {
+        font-family: "Kantumruy Pro", sans-serif;
+        font-size: 14px;
+        font-weight: 300;
+        margin: 0;
+      }
+    }
+  }
+
+  .aboutSection {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 50px 0px;
+
+    img {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .textContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 400px;
+    }
+
+    h2 {
+      font-family: "Judson", serif;
+      font-style: italic;
+      font-size: 24px;
+      font-weight: 500;
+      color: #7d1607;
+    }
+
+    p {
+      font-family: "Kantumruy Pro", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+    }
+  }
+
+  .footerSection {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+}
+
+/* =========================
+   Responsive
+======================== */
+
+@media (max-width: 1125px) {
+  .mainContainer {
+    .articlesSection {
+      .articlesContainer {
+        .card {
+          width: 200px;
+        }
+      }
+    }
+  }
+}
+
+/* ✅ Grid responsive + remplissage des “trous” */
+@media (max-width: 850px) {
+  .mainContainer {
+    .articlesSection {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-start;
+
+      p {
+        text-align: justify;
+      }
+    }
+
+    .articlesContainer {
+      display: flex;
+      justify-content: flex-start;
+      gap: 6px;
+      width: 100%;
+      overflow: scroll;
+    }
+
+    .card {
+      min-width: 45%; // ✅ ce que tu veux
+      max-width: none;
+    }
+
+    .textSection {
+      width: 100%;
+      align-items: flex-end;
+    }
+
+    .aboutSection {
+      flex-direction: column;
+      gap: 16px;
+      min-height: auto;
+      margin: 100px 0px;
+
+      img {
+        max-width: 250px; // reste cohérent avec tes largeurs “centrées”
+        margin: 0 auto;
+        display: block;
+      }
+
+      .textContainer {
+        width: 100%;
+        max-width: none; // reste cohérent avec tes largeurs “centrées”
+        margin: 0 auto;
+        gap: 16px;
+        align-items: center;
+
+        h2 {
+          text-align: center;
+          font-size: 24px;
+        }
+
+        p {
+          text-align: center;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}
+/* ✅ 1 colonne sur très petit */
+@media (max-width: 480px) {
+  .mainContainer {
+    padding: 0 20px;
+    .articlesSection {
+      grid-template-columns: 1fr;
+    }
+
+    .card {
+      min-width: 280px;
+    }
+
+    .aboutSection {
+      gap: 14px;
+
+      img {
+        max-width: 70%;
+      }
+
+      .textContainer {
+        max-width: 100%;
+        gap: 24px;
+      }
+
+      h2 {
+        font-size: 18px;
+        line-height: 1.2;
+      }
+
+      p {
+        font-size: 13px;
+        line-height: 1.1;
+      }
+    }
+  }
+}

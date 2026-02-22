@@ -1,0 +1,227 @@
+/** @format */
+
+.mainContainer {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================
+   HERO
+======================== */
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: clamp(520px, 90vh, 760px);
+  overflow: hidden;
+  background: url("/img/Hero.png") center/cover no-repeat;
+  display: flex;
+  align-items: flex-end;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.45) 0%,
+    rgba(0, 0, 0, 0.15) 45%,
+    rgba(0, 0, 0, 0.35) 100%
+  );
+  pointer-events: none;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 0 40px 70px;
+
+  max-width: 560px;
+
+  h1 {
+    font-family: "Judson", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(34px, 4vw, 56px);
+    color: #fffdf5;
+    margin: 0 0 18px 0;
+    line-height: 1.05;
+  }
+
+  p {
+    font-family: "Kantumruy Pro", sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255, 253, 245, 0.9);
+    margin: 0;
+    max-width: 54ch;
+    line-height: 1.6;
+  }
+}
+
+/* Bandeau promo en bas */
+.heroPromo {
+  position: relative;
+  width: 100%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background: #550d02;
+  padding: 12px 40px;
+
+  p {
+    margin: 0;
+    font-family: "Kantumruy Pro", sans-serif;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 300;
+    color: #fffdf5;
+    line-height: 1.35;
+  }
+}
+
+.productsSection {
+  width: 100%;
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fffdf5;
+
+  .inner {
+    width: 100%;
+    max-width: 1500px; // 👈 même largeur que la grid
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  h3 {
+    font-family: "Kantumruy Pro", sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    margin: 0;
+    color: #7d1607;
+  }
+
+  .productsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 8px;
+    width: 100%;
+  }
+}
+
+.detailsSection {
+  width: 100%;
+  padding: 60px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  h3 {
+    font-family: "Judson", serif;
+    font-style: italic;
+    font-size: 32px;
+    font-weight: 400;
+    margin: 0;
+    text-align: center;
+  }
+
+  p {
+    font-family: "Kantumruy Pro", sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: #333333;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 500px;
+    text-align: center;
+  }
+}
+
+.footerSection {
+  padding: 0px 40px;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+/* =========================
+   Responsive
+======================== */
+
+@media (max-width: 768px) {
+  .hero {
+    height: clamp(520px, 60vh, 700px);
+  }
+
+  .heroContent {
+    padding: 0 18px 76px;
+    max-width: 520px;
+
+    h1 {
+      font-size: 36px;
+    }
+  }
+
+  .heroPromo {
+    padding: 12px 18px;
+
+    p {
+      font-size: 12px;
+    }
+  }
+
+  .productsSection {
+    padding: 40px 20px;
+
+    .inner {
+      max-width: 100%;
+    }
+  }
+
+  .detailsSection {
+    padding: 40px 20px;
+
+    h3 {
+      font-size: 28px;
+    }
+
+    p {
+      font-size: 13px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .heroContent {
+    h1 {
+      font-size: 32px;
+    }
+  }
+
+  .detailsSection {
+    h3 {
+      font-size: 24px;
+    }
+  }
+  .productsSection {
+    .productsGrid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  }
+
+  .footerSection {
+    padding: 0px 20px;
+  }
+}

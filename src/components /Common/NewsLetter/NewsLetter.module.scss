@@ -1,0 +1,128 @@
+/** @format */
+
+.mainContainer {
+  width: 100%;
+  height: 350px;
+  border-radius: 8px;
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: url("/img/Newsletter.png") center/cover no-repeat;
+  padding: 0 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+
+  .texts {
+    color: #fffdf5;
+    width: 470px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    h4 {
+      font-family: "Judson", serif;
+      font-size: 32px;
+      font-weight: 500;
+      font-style: italic;
+      margin: 0;
+    }
+
+    p {
+      font-family: "Kantumruy Pro", sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      margin: 0;
+    }
+  }
+
+  .newsletterForm {
+    width: 470px;
+    background: #ffffff;
+    padding: 6px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+
+    input {
+      width: 80%;
+      border: none;
+      outline: none;
+      font-family: "Kantumruy Pro", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      padding: 10px 20px;
+    }
+
+    button {
+      width: 20%;
+      background-color: #7d1607;
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+      border-radius: 3px;
+      padding: 10px 25px;
+      font-family: "Kantumruy Pro", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+    }
+  }
+
+  /* =========================
+     Responsive
+  ========================= */
+
+  /* Tablet / small desktop */
+  @media (max-width: 850px) {
+    padding: 0 22px;
+    gap: 28px;
+
+    .texts,
+    .newsletterForm {
+      width: 100%;
+      max-width: 520px; // cohérent avec tes sections centrées
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 480px) {
+    height: auto;
+    padding: 22px 16px;
+    gap: 18px;
+
+    .texts {
+      max-width: 100%;
+
+      h4 {
+        font-size: 22px;
+        line-height: 1.2;
+      }
+
+      p {
+        font-size: 13px;
+        line-height: 1.6;
+      }
+    }
+
+    .newsletterForm {
+      max-width: 100%;
+      flex-direction: column;
+      gap: 10px;
+      padding: 8px;
+
+      input {
+        width: 100%;
+        padding: 12px 14px;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 4px;
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+/** @format */
+
+.Button {
+  text-decoration: none;
+  border-radius: 1000px;
+  padding: 10px 40px;
+  cursor: pointer;
+  font-family: "Kantumruy Pro", sans-serif;
+  label {
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+
+.primaryButton {
+  background-color: #7d1607;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+.secondaryButton {
+  background-color: transparent;
+  color: #7d1607;
+  border: 1px solid #7d1607;
+  cursor: pointer;
+}

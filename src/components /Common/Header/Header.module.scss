@@ -1,0 +1,390 @@
+/** @format */
+
+.mainContainer {
+  padding: 20px 30px;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  width: 100%;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+.mainContainerCart {
+  inset: 0;
+  top: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+/* =========================
+   HEADER CARD
+========================= */
+
+.header {
+  width: 100%;
+  padding: 15px 30px;
+
+  border-radius: 10px;
+  background-color: #fffdf5;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.07);
+
+  position: relative; /* pour le bouton close */
+}
+
+/* wrapper du contenu header (grid + search row) */
+.headerInner {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr; /* gauche / logo / droite */
+  grid-template-rows: auto auto; /* top row / search row */
+  align-items: center;
+  column-gap: 20px;
+
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.headerInnerHidden {
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+}
+
+/* wrapper du contenu panier */
+.cartInner {
+  position: absolute;
+  inset: 0;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+
+  transform: translateY(6px);
+}
+
+.cartInnerVisible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* Logo centré via la colonne 2 */
+.brand {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
+  display: inline-flex;
+
+  h3 {
+    font-family: "TAN Nimbus", serif;
+    font-size: 24px;
+    font-weight: 300;
+    color: #7d1607;
+    margin: 0;
+    line-height: 1;
+  }
+}
+
+/* Desktop links (gauche) */
+.links {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+
+  display: flex;
+  gap: 15px;
+  align-items: center;
+
+  p {
+    font-size: 14px;
+    font-weight: 300;
+    font-family: "Kantumruy Pro", sans-serif;
+    margin: 0;
+  }
+}
+
+/* Desktop items (droite) */
+.items {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  img {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+}
+
+/* Icon button (search) */
+.iconBtn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Mobile controls (droite) */
+.mobileRight {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+
+  display: none;
+  align-items: center;
+  gap: 14px;
+
+  img {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+}
+
+.burger {
+  background: transparent;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  border-radius: 6px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.burgerLine {
+  width: 22px;
+  height: 1.5px;
+  background: #7d1607;
+  display: block;
+}
+
+/* =========================
+   SEARCH (inside header card)
+========================= */
+
+.searchRow {
+  grid-column: 1 / -1;
+  grid-row: 2;
+
+  /* fermé par défaut */
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+
+  transition: max-height 0.25s ease, opacity 0.2s ease;
+}
+
+.searchOpen {
+  max-height: 90px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.searchForm {
+  width: 100%;
+  display: flex;
+  margin-top: 16px;
+  gap: 10px;
+  align-items: center;
+
+  input {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    padding: 12px 14px;
+    outline: none;
+    font-family: "Kantumruy Pro", sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    background: #fff;
+  }
+
+  button {
+    border: none;
+    background: #7d1607;
+    color: #fff;
+    border-radius: 8px;
+    padding: 12px 14px;
+    cursor: pointer;
+    font-family: "Kantumruy Pro", sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    white-space: nowrap;
+  }
+}
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+.mobileMenu {
+  display: none;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 768px) {
+  .mainContainer {
+    padding: 14px 16px;
+  }
+
+  .header {
+    padding: 12px 14px;
+  }
+
+  .headerInner {
+    column-gap: 12px;
+    row-gap: 12px;
+  }
+
+  /* on cache desktop */
+  .links {
+    display: none;
+  }
+  .items {
+    display: none;
+  }
+
+  /* on montre mobile controls */
+  .mobileRight {
+    display: flex;
+  }
+
+  .brand h3 {
+    font-size: 24px;
+  }
+
+  .mobileMenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+
+    margin-top: 12px;
+
+    border-radius: 10px;
+    background-color: #fffdf5;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.07);
+
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    padding: 0 14px;
+    transition: max-height 0.25s ease, opacity 0.2s ease, padding 0.25s ease;
+
+    p {
+      font-size: 16px;
+      font-weight: 300;
+      font-family: "Kantumruy Pro", sans-serif;
+      margin: 0;
+    }
+  }
+
+  .openMenu {
+    max-height: 240px;
+    opacity: 1;
+    padding: 18px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand h3 {
+    font-size: 22px;
+  }
+
+  .mobileMenu {
+    p {
+      font-size: 15px;
+    }
+  }
+}
+
+/* =========================
+   Overlay + Cart styles
+========================= */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.overlayOpen {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cartBtn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #7d1607;
+  color: #fff;
+  font-size: 11px;
+  display: grid;
+  place-items: center;
+  font-family: "Kantumruy Pro", sans-serif;
+  font-weight: 500;
+}
+
+.cartOpen {
+  width: min(920px, calc(100vw - 32px));
+  height: min(720px, calc(100vh - 40px));
+
+  padding: 0;
+  border-radius: 10px;
+  z-index: 1001;
+
+  background-color: #fffdf5;
+}
+
+.cartClose {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  z-index: 2;
+}

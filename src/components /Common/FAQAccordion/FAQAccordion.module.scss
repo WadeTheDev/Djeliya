@@ -1,0 +1,130 @@
+/** @format */
+
+.faq {
+  width: 100%;
+}
+
+.list {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.7);
+}
+
+.trigger {
+  width: 100%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  text-align: left;
+}
+
+.left {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.index {
+  font-family: "Kantumruy Pro", sans-serif;
+  font-size: 16px; // ↓ avant 26
+  font-weight: 300;
+  color: #000;
+}
+
+.question {
+  font-family: "Kantumruy Pro", sans-serif;
+  font-size: 16px; // ↓ avant 34
+  font-weight: 300;
+  color: #000;
+  line-height: 1.25;
+}
+
+/* Icon: + devient × (rotation) */
+.icon {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  flex: 0 0 26px;
+  opacity: 0.9;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 22px;
+    height: 1.6px;
+    background: rgba(0, 0, 0, 0.85);
+    transform: translate(-50%, -50%);
+    border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  /* barre verticale du + */
+  &::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+}
+
+/* ouvert -> × */
+.iconOpen {
+  &::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+  &::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+}
+
+/* ✅ Panel animé (robuste) */
+.panel {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.2s ease;
+}
+
+.panelOpen {
+  max-height: 500px; /* augmente si réponses plus longues */
+  opacity: 1;
+}
+
+.answer {
+  padding: 0 0 8px 0;
+  font-family: "Kantumruy Pro", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(0, 0, 0, 0.85);
+
+  max-width: 95ch; /* comme ta ref: texte pas trop large */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .trigger {
+    padding: 8px 0;
+  }
+  .index {
+    font-size: 16px;
+  }
+  .question {
+    font-size: 16px;
+  }
+  .answer {
+    font-size: 13px;
+    padding-bottom: 6px;
+  }
+}

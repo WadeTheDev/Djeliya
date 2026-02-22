@@ -1,0 +1,138 @@
+/** @format */
+
+.wrapper {
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.title {
+  font-family: "Kantumruy Pro", sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #7d1607;
+  margin: 0;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.arrowBtn {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  border: 1px solid rgba(125, 22, 7, 0.25);
+  background: #faf8f0;
+  color: #7d1607;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  line-height: 1;
+  user-select: none;
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+}
+
+.viewport {
+  width: 100%;
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 6px;
+
+  /* clean scrollbar */
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.card {
+  flex: 0 0 calc((100% - 20px) / 2);
+  border: 1px solid rgba(125, 22, 7, 0.35);
+  background: #ffffff;
+  border-radius: 3px;
+  padding: 18px 20px;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.cardTitle {
+  font-family: "Kantumruy Pro", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #7d1607;
+  margin: 0;
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.starFull {
+  color: #7d1607;
+}
+
+.starEmpty {
+  color: rgba(125, 22, 7, 0.25);
+}
+
+.content {
+  font-family: "Kantumruy Pro", sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: #7d1607;
+  margin: 0;
+  max-width: 95%;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.author {
+  font-family: "Kantumruy Pro", sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  color: #7d1607;
+  opacity: 0.9;
+}
+
+/* Mobile: 1 carte visible */
+@media (max-width: 768px) {
+  .card {
+    flex-basis: 100%;
+  }
+}

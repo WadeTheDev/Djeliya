@@ -3,6 +3,7 @@
 .wrapper {
   width: 100%;
   margin-bottom: 50px;
+  overflow: hidden;
 }
 
 .header {
@@ -133,6 +134,7 @@
 /* Mobile: 1 carte visible */
 @media (max-width: 768px) {
   .card {
+    width: 100%;
     flex-basis: 100%;
   }
 }

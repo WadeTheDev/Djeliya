@@ -19,7 +19,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 70px;
+  gap: 24px;
 }
 
 .topTitle {
@@ -35,12 +35,14 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px 16px;
+  max-width: 900px;
 
   p {
     font-family: "Kantumruy Pro", sans-serif;
-    font-size: 12px;
+    font-size: 14;
     font-weight: 300;
-    // line-height: 1.75;
+    text-align: justify;
+    line-height: 1.25;
     margin: 0;
     color: #1a1a1a;
   }
@@ -56,7 +58,7 @@
   margin-top: 110px;
   display: grid;
   grid-template-columns: 1fr 1.35fr;
-  gap: 70px;
+  gap: 0px;
   align-items: center;
 }
 
@@ -64,7 +66,7 @@
   h2 {
     font-family: "Judson", serif;
     font-style: italic;
-    font-size: 20px;
+    font-size: 32px;
     font-weight: 500;
     color: #000;
     margin: 0 0 16px 0;
@@ -72,7 +74,7 @@
 
   p {
     font-family: "Kantumruy Pro", sans-serif;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 300;
     line-height: 1.75;
     margin: 0 0 14px 0;
@@ -89,8 +91,19 @@
 
 .imageWide {
   width: min(640px, 100%);
-  height: 250px;
-  border: 3px solid red;
+  height: 300px;
+  // border: 1px solid red;
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.imageWidebg1 {
+  background: url("/img/mission1.png") no-repeat center;
+  background-size: cover;
+}
+
+.imageWidebg2 {
+  background: url("/img/mission2.png") no-repeat center;
+  background-size: cover;
 }
 
 /* =========================
@@ -103,16 +116,13 @@
   margin: 140px 0 80px;
   display: flex;
   grid-template-columns: 260px 1fr;
-  gap: 70px;
+  gap: 16px;
   align-items: center;
   justify-content: center;
 }
 
 .roundImage {
-  width: 240px;
-  height: 240px;
-  border-radius: 999px;
-  border: 3px solid red;
+  width: 350px;
   justify-self: center;
 }
 
@@ -120,30 +130,29 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
-  max-width: 520px;
+  max-width: 400px;
 
   h3 {
     font-family: "Judson", serif;
     font-style: italic;
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 500;
     color: #7d1607;
     margin: 0;
-    line-height: 1.15;
+    line-height: 1.35;
   }
 
   p {
     font-family: "Kantumruy Pro", sans-serif;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 300;
-    line-height: 1.75;
+    line-height: 1.25;
     margin: 0;
     color: #1a1a1a;
 
     span {
       color: #7d1607;
-      text-decoration: underline;
-      text-underline-offset: 2px;
+      font-weight: 500;
     }
   }
 }
@@ -158,7 +167,7 @@
   background: #7d1607;
   color: #fff;
   font-family: "Kantumruy Pro", sans-serif;
-  font-size: 12px;
+  font-size: 14;
   font-weight: 400;
 }
 
@@ -183,6 +192,7 @@
   .middleSection {
     grid-template-columns: 1fr;
     gap: 40px;
+    text-align: justify;
   }
 
   .missionImages {
@@ -194,8 +204,9 @@
   }
 
   .ctaSection {
-    grid-template-columns: 1fr;
-    gap: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
     margin: 110px 0 70px;
   }
 

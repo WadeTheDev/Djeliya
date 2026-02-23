@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import styles from "./Footer.module.scss";
+import { slideInOut } from "@/animations";
+import { useTransitionRouter } from "next-view-transitions";
 
 type FooterLink = { label: string; href: string };
 
@@ -43,12 +45,18 @@ const legalLinks: FooterLink[] = [
 ];
 
 export default function Footer({ columns = defaultColumns }: Props) {
+
+  const router = useTransitionRouter();
+
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
         {/* Col gauche */}
         <div className={styles.brandCol}>
-          <Link href="/" className={styles.brand}>
+          <Link href="/" className={styles.brand} onClick={(e) => {
+            e.preventDefault();
+            router.push(`/`, { onTransitionReady: slideInOut });
+          }}>
             Djeliya
           </Link>
 

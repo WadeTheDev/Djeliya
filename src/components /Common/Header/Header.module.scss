@@ -36,6 +36,10 @@
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.07);
 
   position: relative; /* pour le bouton close */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  overflow: hidden; // important pendant le scale
+  contain: layout paint;
 }
 
 /* wrapper du contenu header (grid + search row) */
@@ -252,11 +256,6 @@
     padding: 12px 14px;
   }
 
-  .headerInner {
-    column-gap: 12px;
-    row-gap: 12px;
-  }
-
   /* on cache desktop */
   .links {
     display: none;
@@ -387,4 +386,11 @@
   background: rgba(0, 0, 0, 0.06);
   cursor: pointer;
   z-index: 2;
+}
+
+@media (max-width: 480px) {
+  .cartOpen {
+    width: calc(100vw - 32px);
+    height: calc(75vh - 40px);
+  }
 }

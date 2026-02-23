@@ -136,13 +136,17 @@ const HomeTemplate = () => {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
               ut labore et dolore magna aliqua...
             </p>
-            <SquareButton href="/about" text="En savoir plus" onClick={() => { }} />
+            <SquareButton
+              href="/about"
+              text="En savoir plus"
+              onClick={(e) => {
+                e.preventDefault();
+                router.push("/shop", { onTransitionReady: slideInOut });
+              }} />
           </Reveal>
         </section>
 
-        <Reveal y={18}>
-          <AvisSlider title="Ils en parlent" items={avis} />
-        </Reveal>
+        <AvisSlider items={avis} />
 
         <section className={styles.footerSection}>
           <Reveal y={18}>

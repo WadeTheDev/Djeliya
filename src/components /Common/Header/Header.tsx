@@ -9,6 +9,7 @@ import { useCartStore } from "@/store/cart.store";
 import { flipAnimate } from "@/utils/flip";
 import CartPanel from "@/components /CartPanel/CartPanel";
 import { usePathname, useSearchParams } from "next/navigation";
+import { s } from "framer-motion/client";
 
 type CartPhase = "closed" | "opening" | "open" | "closing";
 
@@ -126,6 +127,10 @@ const Header = () => {
 
   const safePush = useCallback(
     (to: string, opts?: { compareQuery?: boolean }) => {
+
+      setIsMenuOpen(false);
+      setIsSearchOpen(false);
+
       // compareQuery: false => compare uniquement le pathname (souvent ce que tu veux pour /shop, /about, /)
       const compareQuery = opts?.compareQuery ?? false;
 
@@ -304,10 +309,16 @@ const Header = () => {
 
       {/* menu mobile (tu peux le garder, caché quand cartOpen via css) */}
       <div className={`${styles.mobileMenu} ${isMenuOpen ? styles.openMenu : ""}`}>
-        <Link scroll={false} href="/shop">
+        <Link scroll={false} href="/shop" onClick={(e) => {
+          e.preventDefault();
+          safePush("/shop"); // compare pathname only
+        }}>
           <p>Au menu</p>
         </Link>
-        <Link scroll={false} href="/about">
+        <Link scroll={false} href="/about" onClick={(e) => {
+          e.preventDefault();
+          safePush("/about"); // compare pathname only
+        }}>
           <p>À propos</p>
         </Link>
         <RoundButton

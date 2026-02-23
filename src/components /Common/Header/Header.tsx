@@ -51,7 +51,6 @@ const Header = () => {
     return () => {
       document.documentElement.style.overflow = prev;
     };
-
   }, [cartOpen]);
 
   // ESC ferme panier (prioritaire)

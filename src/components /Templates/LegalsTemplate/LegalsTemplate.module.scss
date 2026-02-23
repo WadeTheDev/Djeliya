@@ -1,0 +1,72 @@
+/** @format */
+
+.mainContainer {
+  padding: 0 30px;
+  min-height: 100vh;
+  background: #f3efe7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.legalWrap {
+  padding: 120px 0 0;
+  width: 100%;
+  max-width: 1500px;
+}
+
+.title {
+  font-family: "Kantumruy Pro", sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  font-weight: 500;
+  color: #000;
+  margin: 0 0 50px 0;
+  text-align: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-bottom: 90px;
+
+  p {
+    font-family: "Kantumruy Pro", sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.85;
+    margin: 0;
+    color: #1a1a1a;
+  }
+
+  h2 {
+    margin: 34px 0 6px;
+    font-family: "Judson", serif;
+    font-style: italic;
+    font-size: 20px;
+    font-weight: 500;
+    color: #7d1607;
+  }
+}
+
+.footerSection {
+  width: 100%;
+  max-width: 1500px;
+  margin-bottom: 40px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .mainContainer {
+    padding: 0 20px;
+  }
+
+  .title {
+    margin-bottom: 38px;
+  }
+
+  .content {
+    padding-bottom: 70px;
+  }
+}

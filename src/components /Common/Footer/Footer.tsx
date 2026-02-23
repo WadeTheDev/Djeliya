@@ -20,28 +20,28 @@ const defaultColumns: FooterColumn[] = [
   {
     title: "Découvrir Djeliya",
     links: [
-      { label: "Les coulisses", href: "" },
-      { label: "Blog", href: "" },
+      { label: "Les coulisses", href: "/about" },
     ],
   },
-  {
-    title: "Choisir Djeliya",
-    links: [{ label: "Avis Clients", href: "" }],
-  },
-  {
-    title: "Aide",
-    links: [
-      { label: "FAQ", href: "" },
-      { label: "Nous Contacter", href: "" },
-    ],
-  },
+  // {
+  //   title: "Choisir Djeliya",
+  //   links: [{ label: "Avis Clients", href: "" }],
+  // },
+  // {
+  //   title: "Aide",
+  //   links: [
+  //     { label: "FAQ", href: "" },
+  //     { label: "Nous Contacter", href: "" },
+  //   ],
+  // },
 ];
 
 const legalLinks: FooterLink[] = [
-  { label: "Mentions légales", href: "" },
-  { label: "Conditions générales de ventes", href: "" },
-  { label: "Politique des Cookies", href: "" },
-  { label: "Livraison internationale", href: "" },
+  { label: "Mentions légales", href: "/legals" },
+  { label: "Conditions générales de ventes", href: "/cgvu" },
+  { label: "Politique de confidentialité", href: "/confidentiality" },
+  { label: "Politique des Cookies", href: "/cookies" },
+  { label: "Livraison internationale", href: "/delivery" },
 ];
 
 export default function Footer({ columns = defaultColumns }: Props) {
@@ -62,7 +62,10 @@ export default function Footer({ columns = defaultColumns }: Props) {
 
           <nav className={styles.legal} aria-label="Liens légaux">
             {legalLinks.map((l) => (
-              <Link key={l.label} href={l.href} className={styles.link}>
+              <Link key={l.label} href={l.href} className={styles.link} onClick={(e) => {
+                e.preventDefault();
+                router.push(l.href, { onTransitionReady: slideInOut });
+              }}>
                 {l.label}
               </Link>
             ))}
@@ -76,7 +79,10 @@ export default function Footer({ columns = defaultColumns }: Props) {
               <p className={styles.colTitle}>{col.title}</p>
               <div className={styles.colLinks}>
                 {col.links.map((l) => (
-                  <Link key={l.label} href={l.href} className={styles.link}>
+                  <Link key={l.label} href={l.href} className={styles.link} onClick={(e) => {
+                    e.preventDefault();
+                    router.push(l.href, { onTransitionReady: slideInOut });
+                  }}>
                     {l.label}
                   </Link>
                 ))}

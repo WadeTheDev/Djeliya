@@ -1,0 +1,151 @@
+/** @format */
+
+.mainContainer {
+  padding: 0 30px;
+  min-height: 100vh;
+  background: #f3efe7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.legalWrap {
+  padding: 120px 0 0;
+  width: 100%;
+  max-width: 1500px;
+}
+
+.title {
+  font-family: "Kantumruy Pro", sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  font-weight: 500;
+  color: #000;
+  margin: 0 0 50px 0;
+  text-align: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-bottom: 90px;
+
+  p {
+    font-family: "Kantumruy Pro", sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.85;
+    margin: 0;
+    color: #1a1a1a;
+  }
+
+  a {
+    color: #7d1607;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  h2 {
+    margin: 34px 0 6px;
+    font-family: "Judson", serif;
+    font-style: italic;
+    font-size: 20px;
+    font-weight: 500;
+    color: #7d1607;
+  }
+
+  h3 {
+    margin: 18px 0 4px;
+    font-family: "Kantumruy Pro", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #000;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    li {
+      font-family: "Kantumruy Pro", sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      line-height: 1.85;
+      color: #1a1a1a;
+    }
+  }
+}
+
+.note {
+  opacity: 0.85;
+
+  strong {
+    font-weight: 500;
+  }
+}
+
+.cookieGrid {
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.cookieCard {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  padding: 14px 14px 12px;
+  background: rgba(255, 255, 255, 0.35);
+
+  h4 {
+    margin: 0 0 8px 0;
+    font-family: "Kantumruy Pro", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #000;
+  }
+
+  p {
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  ul {
+    padding-left: 16px;
+
+    li {
+      line-height: 1.65;
+    }
+  }
+}
+
+.footerSection {
+  width: 100%;
+  max-width: 1500px;
+  margin-bottom: 40px;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .cookieGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .mainContainer {
+    padding: 0 20px;
+  }
+
+  .title {
+    margin-bottom: 38px;
+  }
+
+  .content {
+    padding-bottom: 70px;
+  }
+}

@@ -141,7 +141,7 @@ const HomeTemplate = () => {
               text="En savoir plus"
               onClick={(e) => {
                 e.preventDefault();
-                router.push("/shop", { onTransitionReady: slideInOut });
+                router.push("/about", { onTransitionReady: slideInOut });
               }} />
           </Reveal>
         </section>

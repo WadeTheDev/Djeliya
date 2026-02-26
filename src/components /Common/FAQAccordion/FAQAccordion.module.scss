@@ -45,7 +45,7 @@
 .question {
   font-family: "Kantumruy Pro", sans-serif;
   font-size: 16px; // ↓ avant 34
-  font-weight: 300;
+  font-weight: 400;
   color: #000;
   line-height: 1.25;
 }
@@ -102,14 +102,13 @@
 }
 
 .answer {
-  padding: 0 0 8px 0;
+  padding: 0px 8px 12px;
   font-family: "Kantumruy Pro", sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 300;
   line-height: 1.7;
   color: rgba(0, 0, 0, 0.85);
-
-  max-width: 95ch; /* comme ta ref: texte pas trop large */
+  // max-width: 95ch; /* comme ta ref: texte pas trop large */
 }
 
 /* Responsive */

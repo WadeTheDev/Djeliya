@@ -6,7 +6,7 @@ import { Product } from "@/types/product";
 import styles from "./ArticleTemplate.module.scss";
 import { Lenis } from 'lenis/react';
 import { useTransitionRouter } from "next-view-transitions";
-import { slideInOut, zoomTransition } from "@/animations";
+import { zoomTransition } from "@/animations";
 import { useCartStore } from "@/store/cart.store";
 
 type ArticleTemplateProps = {

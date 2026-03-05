@@ -6,7 +6,7 @@ import NewsLetter from "@/components /Common/NewsLetter/NewsLetter";
 import { productsMock as products } from "@/mock/products";
 import ArticleCardGrid from "@/components /Common/ArticleCardList/ArticleCardGrid";
 import { useTransitionRouter } from "next-view-transitions";
-import { slideInOut, zoomTransition } from "@/animations";
+import { zoomTransition } from "@/animations";
 import { Lenis } from "lenis/react";
 
 import Reveal from "@/components /Common/Reveal/Reveal";

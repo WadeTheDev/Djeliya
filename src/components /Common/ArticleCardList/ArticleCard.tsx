@@ -29,7 +29,7 @@ const ArticleCard = ({ id, title, price, imageUrl, isNew, onClick }: Props) => {
       {isNew && <div className={styles.isNew}>New</div>}
 
       <div className={styles.image}>
-        <img src={imageUrl || "/img/ProductImage.png"} alt={title} />
+        <img src={imageUrl} alt={title} />
       </div>
 
       <div className={styles.infos}>

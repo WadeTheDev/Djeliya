@@ -100,7 +100,7 @@ const HomeTemplate = () => {
                   href={`/product/${product.id}`}
                   title={product.name}
                   price={product.price.toFixed(2) + "€"}
-                  imageUrl={"/img/ProductImage.png"}
+                  imageUrl={product.images.packaging.src}
                   isNew={product.isNew}
                   onClick={(e) => {
                     e.preventDefault();

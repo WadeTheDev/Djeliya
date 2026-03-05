@@ -89,6 +89,7 @@ const ShopTemplate = () => {
                   price: `${product.price.toFixed(2)}€`,
                   isNew: product.isNew,
                   href: `/product/${product.id}`,
+                  imageUrl: product.images.packaging.src,
                 }))}
                 onItemClick={(item) => {
                   router.push(`/product/${item.id}`, {

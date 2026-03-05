@@ -18,7 +18,7 @@ export const productsMock: Product[] = [
     price: 9.9,
     images: {
       packaging: {
-        src: "/img/ProductImage.png",
+        src: "/img/Product1.png",
         alt: "Packaging Thiéb au poulet",
       },
       dishes: [
@@ -78,14 +78,17 @@ export const productsMock: Product[] = [
     price: 10.9,
     images: {
       packaging: {
-        src: "/images/products/mafe-boeuf/packaging.jpg",
+        src: "/img/Product2.png",
         alt: "Packaging Mafé au bœuf",
       },
       dishes: [
-        {src: "/images/products/mafe-boeuf/dish-1.jpg", alt: "Mafé au bœuf"},
         {
-          src: "/images/products/mafe-boeuf/dish-2.jpg",
-          alt: "Mafé au bœuf détail",
+          src: "/img/dish-1.png",
+          alt: "Thiéb au poulet",
+        },
+        {
+          src: "/img/dish-2.png",
+          alt: "Thiéb au poulet détail",
         },
       ],
     },
@@ -123,17 +126,17 @@ export const productsMock: Product[] = [
     price: 9.5,
     images: {
       packaging: {
-        src: "/images/products/yassa-poulet/packaging.jpg",
+        src: "/img/Product3.png",
         alt: "Packaging Yassa au poulet",
       },
       dishes: [
         {
-          src: "/images/products/yassa-poulet/dish-1.jpg",
-          alt: "Yassa au poulet",
+          src: "/img/dish-1.png",
+          alt: "Thiéb au poulet",
         },
         {
-          src: "/images/products/yassa-poulet/dish-2.jpg",
-          alt: "Yassa au poulet détail",
+          src: "/img/dish-2.png",
+          alt: "Thiéb au poulet détail",
         },
       ],
     },
@@ -168,17 +171,17 @@ export const productsMock: Product[] = [
     price: 8.9,
     images: {
       packaging: {
-        src: "/images/products/thieb-veggie/packaging.jpg",
+        src: "/img/Product4.png",
         alt: "Packaging Thiéb végétarien",
       },
       dishes: [
         {
-          src: "/images/products/thieb-veggie/dish-1.jpg",
-          alt: "Thiéb végétarien",
+          src: "/img/dish-1.png",
+          alt: "Thiéb au poulet",
         },
         {
-          src: "/images/products/thieb-veggie/dish-2.jpg",
-          alt: "Thiéb végétarien détail",
+          src: "/img/dish-2.png",
+          alt: "Thiéb au poulet détail",
         },
       ],
     },
@@ -213,12 +216,18 @@ export const productsMock: Product[] = [
     price: 11.5,
     images: {
       packaging: {
-        src: "/images/products/poulet-dg/packaging.jpg",
+        src: "/img/Product5.png",
         alt: "Packaging Poulet DG",
       },
       dishes: [
-        {src: "/images/products/poulet-dg/dish-1.jpg", alt: "Poulet DG"},
-        {src: "/images/products/poulet-dg/dish-2.jpg", alt: "Poulet DG détail"},
+        {
+          src: "/img/dish-1.png",
+          alt: "Thiéb au poulet",
+        },
+        {
+          src: "/img/dish-2.png",
+          alt: "Thiéb au poulet détail",
+        },
       ],
     },
     details: {

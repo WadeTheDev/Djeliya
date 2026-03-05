@@ -66,10 +66,10 @@
   }
 
   .articlesSection {
-    width: 100%;
     display: flex;
     align-items: flex-end;
     gap: 24px;
+    justify-content: flex-start;
 
     .articlesContainer {
       width: 100%;
@@ -93,6 +93,7 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
+      max-width: 400px;
 
       p {
         font-family: "Kantumruy Pro", sans-serif;
@@ -169,6 +170,8 @@
 @media (max-width: 1125px) {
   .mainContainer {
     .articlesSection {
+      // width: 100%;
+
       .articlesContainer {
         .card {
           width: 200px;
@@ -182,6 +185,7 @@
 @media (max-width: 850px) {
   .mainContainer {
     .articlesSection {
+      width: 100%;
       display: flex;
       flex-direction: column;
       gap: 16px;
@@ -189,6 +193,11 @@
 
       p {
         text-align: justify;
+      }
+
+      .textSection {
+        max-width: none;
+        width: 100%;
       }
     }
 

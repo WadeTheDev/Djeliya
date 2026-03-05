@@ -23,17 +23,6 @@ const defaultColumns: FooterColumn[] = [
       { label: "Les coulisses", href: "/about" },
     ],
   },
-  // {
-  //   title: "Choisir Djeliya",
-  //   links: [{ label: "Avis Clients", href: "" }],
-  // },
-  // {
-  //   title: "Aide",
-  //   links: [
-  //     { label: "FAQ", href: "" },
-  //     { label: "Nous Contacter", href: "" },
-  //   ],
-  // },
 ];
 
 const legalLinks: FooterLink[] = [

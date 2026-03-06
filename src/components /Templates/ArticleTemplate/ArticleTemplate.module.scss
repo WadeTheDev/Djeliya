@@ -371,13 +371,21 @@
   overflow: hidden;
 }
 
-.s2Text {
+.s2Description {
+  display: flex;
+  align-items: flex-end;
+  // border: red solid 1px;
   margin: 0 0 28px;
+  gap: 16px;
+  width: 100%;
+}
+
+.s2Text {
   font-family: "Kantumruy Pro", sans-serif;
   font-size: 12px;
   line-height: 1.65;
   color: rgba(45, 30, 26, 0.75);
-  max-width: 520px;
+  // max-width: 520px;
 
   display: -webkit-box;
   -webkit-line-clamp: 6;
@@ -682,8 +690,7 @@
 
   .s2Content {
     margin-top: 68px;
-    max-width: 680px;
-
+    max-width: none;
     background: rgba(255, 253, 245, 0.7);
     border: 1px solid rgba(45, 30, 26, 0.08);
     border-radius: 6px;
@@ -703,6 +710,7 @@
 
   .s2Index {
     font-size: 34px;
+    display: none;
   }
 
   .slide3 {

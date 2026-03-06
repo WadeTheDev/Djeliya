@@ -217,11 +217,12 @@ const ArticleTemplate = ({ product }: ArticleTemplateProps) => {
 
               <div className={styles.s2Content}>
                 <h2 className={styles.s2Title}>Description</h2>
-
-                <p className={styles.s2Text}>{product.description}</p>
+                <div className={styles.s2Description}>
+                  <span className={styles.s2Index}>02.</span>
+                  <p className={styles.s2Text}>{product.description}</p>
+                </div>
 
                 <div className={styles.s2Bottom}>
-                  <span className={styles.s2Index}>02.</span>
 
                   <button className={styles.s2Cta} onClick={onAddToCart}>
                     AJOUTER AU PANIER - {product.price.toFixed(2).replace(".", ",")}€

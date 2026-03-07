@@ -35,20 +35,19 @@
   background-color: #fffdf5;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.07);
 
-  position: relative; /* pour le bouton close */
+  position: relative;
   transform: translateZ(0);
   backface-visibility: hidden;
-  overflow: hidden; // important pendant le scale
+  overflow: hidden;
   contain: layout paint;
 }
 
-/* wrapper du contenu header (grid + search row) */
 .headerInner {
   width: 100%;
 
   display: grid;
-  grid-template-columns: 1fr auto 1fr; /* gauche / logo / droite */
-  grid-template-rows: auto auto; /* top row / search row */
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-rows: auto auto;
   align-items: center;
   column-gap: 20px;
 
@@ -63,25 +62,24 @@
   pointer-events: none;
 }
 
-/* wrapper du contenu panier */
-.cartInner {
+.cartInner,
+.searchInner {
   position: absolute;
   inset: 0;
 
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.22s ease, transform 0.22s ease;
-
   transform: translateY(6px);
 }
 
-.cartInnerVisible {
+.cartInnerVisible,
+.searchInnerVisible {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
 }
 
-/* Logo centré via la colonne 2 */
 .brand {
   grid-column: 2;
   grid-row: 1;
@@ -98,7 +96,6 @@
   }
 }
 
-/* Desktop links (gauche) */
 .links {
   grid-column: 1;
   grid-row: 1;
@@ -116,7 +113,6 @@
   }
 }
 
-/* Desktop items (droite) */
 .items {
   grid-column: 3;
   grid-row: 1;
@@ -133,7 +129,6 @@
   }
 }
 
-/* Icon button (search) */
 .iconBtn {
   border: none;
   background: transparent;
@@ -144,7 +139,6 @@
   justify-content: center;
 }
 
-/* Mobile controls (droite) */
 .mobileRight {
   grid-column: 3;
   grid-row: 1;
@@ -180,14 +174,13 @@
 }
 
 /* =========================
-   SEARCH (inside header card)
+   SEARCH ROW
 ========================= */
 
 .searchRow {
   grid-column: 1 / -1;
   grid-row: 2;
 
-  /* fermé par défaut */
   max-height: 0;
   overflow: hidden;
   opacity: 0;
@@ -256,15 +249,14 @@
     padding: 12px 14px;
   }
 
-  /* on cache desktop */
   .links {
     display: none;
   }
+
   .items {
     display: none;
   }
 
-  /* on montre mobile controls */
   .mobileRight {
     display: flex;
   }
@@ -319,7 +311,7 @@
 }
 
 /* =========================
-   Overlay + Cart styles
+   Overlay + Cart/Search
 ========================= */
 
 .overlay {
@@ -371,11 +363,21 @@
   padding: 0;
   border-radius: 10px;
   z-index: 1001;
-
   background-color: #fffdf5;
 }
 
-.cartClose {
+.searchOpenPanel {
+  width: min(720px, calc(100vw - 32px));
+  height: min(560px, calc(100vh - 64px));
+
+  padding: 0;
+  border-radius: 10px;
+  z-index: 1001;
+  background-color: #fffdf5;
+}
+
+.cartClose,
+.searchClose {
   position: absolute;
   top: 14px;
   right: 14px;
@@ -392,5 +394,10 @@
   .cartOpen {
     width: calc(100vw - 32px);
     height: calc(75vh - 40px);
+  }
+
+  .searchOpenPanel {
+    width: calc(100vw - 32px);
+    height: min(70vh, 560px);
   }
 }

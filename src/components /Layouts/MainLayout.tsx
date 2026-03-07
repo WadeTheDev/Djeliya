@@ -5,6 +5,7 @@ import styles from './MainLayout.module.scss';
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
+
     <div className={styles.mainLayout}>
       <Header />
       {children}

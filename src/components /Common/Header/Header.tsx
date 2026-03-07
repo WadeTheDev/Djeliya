@@ -1,19 +1,54 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./Header.module.scss";
 import RoundButton from "../HeaderButton/RoundButton";
 import { Link, useTransitionRouter } from "next-view-transitions";
-import { slideInOut } from "@/animations";
+import { zoomTransition } from "@/animations";
 import { useCartStore } from "@/store/cart.store";
 import { flipAnimate } from "@/utils/flip";
-import CartPanel from "@/components /CartPanel/CartPanel";
 import { usePathname, useSearchParams } from "next/navigation";
-import { s } from "framer-motion/client";
+import type { Product } from "@/domain/product";
+import { productsMock } from "@/mock/products";
+import SearchPanel from "@/components /SearchPanel/SearchPanel";
+import CartPanel from "@/components /CartPanel/CartPanel";
 
 type CartPhase = "closed" | "opening" | "open" | "closing";
+type SearchPhase = "closed" | "opening" | "open" | "closing";
 
 const wait = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
+
+const normalize = (value: string) =>
+  value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+
+const searchProducts = (products: Product[], query: string) => {
+
+
+
+
+
+  const q = normalize(query);
+  if (!q) return [];
+
+  return products.filter((product) => {
+    const haystack = normalize(
+      [
+        product.name,
+        product.slug,
+        product.quote,
+        product.description,
+        product.shortDescription,
+        product.details.ingredients.join(" "),
+      ].join(" ")
+    );
+
+    return haystack.includes(q);
+  });
+};
 
 const Header = () => {
   const router = useTransitionRouter();
@@ -21,6 +56,10 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [submittedQuery, setSubmittedQuery] = useState("");
+  const [searchModalOpen, setSearchModalOpen] = useState(false);
+  const [searchPhase, setSearchPhase] = useState<SearchPhase>("closed");
+
   const countItems = useCartStore((s) => s.countItems());
 
   const cartOpen = useCartStore((s) => s.isOpen);
@@ -29,73 +68,119 @@ const Header = () => {
 
   const [cartPhase, setCartPhase] = useState<CartPhase>("closed");
 
-  // synchro si refresh/persist te met isOpen à true
   useEffect(() => {
     if (cartOpen && cartPhase === "closed") setCartPhase("open");
     if (!cartOpen && cartPhase === "open") setCartPhase("closed");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cartOpen]);
+  }, [cartOpen, cartPhase]);
+
+  useEffect(() => {
+    if (searchModalOpen && searchPhase === "closed") setSearchPhase("open");
+    if (!searchModalOpen && searchPhase === "open") setSearchPhase("closed");
+  }, [searchModalOpen, searchPhase]);
 
   const headerCardRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  // focus auto search
+  const searchResults = useMemo(
+    () => searchProducts(productsMock, submittedQuery),
+    [submittedQuery]
+  );
+
   useEffect(() => {
     if (isSearchOpen) setTimeout(() => inputRef.current?.focus(), 0);
   }, [isSearchOpen]);
 
-  // lock scroll quand panier open
+  const panelOpen = cartOpen || searchModalOpen;
+
   useEffect(() => {
-    if (!cartOpen) return;
+    if (!panelOpen) return;
     const prev = document.documentElement.style.overflow;
     document.documentElement.style.overflow = "hidden";
     return () => {
       document.documentElement.style.overflow = prev;
     };
-  }, [cartOpen]);
+  }, [panelOpen]);
 
-  // ESC ferme panier (prioritaire)
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        if (cartOpen) onCloseCart();
-        else if (isSearchOpen) setIsSearchOpen(false);
+      if (e.key !== "Escape") return;
+
+      if (cartOpen) {
+        onCloseCart();
+        return;
+      }
+
+      if (searchModalOpen) {
+        onCloseSearch();
+        return;
+      }
+
+      if (isSearchOpen) {
+        setIsSearchOpen(false);
       }
     };
+
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cartOpen, isSearchOpen]);
+  }, [cartOpen, searchModalOpen, isSearchOpen]);
 
   const toggleSearch = () => {
+    if (panelOpen) return;
     if (!isSearchOpen) setIsMenuOpen(false);
     setIsSearchOpen((v) => !v);
   };
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onOpenSearch = async (nextQuery: string) => {
+    if (cartOpen || searchModalOpen) return;
+
+    setIsMenuOpen(false);
+    setIsSearchOpen(false);
+    setSubmittedQuery(nextQuery);
+
+    const el = headerCardRef.current;
+    if (!el) {
+      setSearchModalOpen(true);
+      return;
+    }
+
+    setSearchPhase("opening");
+    await wait(220);
+    await flipAnimate(el, () => setSearchModalOpen(true));
+    setSearchPhase("open");
+  };
+
+  const onCloseSearch = async () => {
+    const el = headerCardRef.current;
+    if (!el) {
+      setSearchModalOpen(false);
+      return;
+    }
+
+    setSearchPhase("closing");
+    await wait(220);
+    await flipAnimate(el, () => setSearchModalOpen(false));
+    setSearchPhase("closed");
+  };
+
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const q = query.trim();
     if (!q) return;
-    setIsSearchOpen(false);
-    router.push(`/search?q=${encodeURIComponent(q)}`);
+    await onOpenSearch(q);
   };
 
   const onOpenCart = async () => {
-    // ferme les dropdowns
+    if (searchModalOpen || cartOpen) return;
+
     setIsMenuOpen(false);
     setIsSearchOpen(false);
 
     const el = headerCardRef.current;
     if (!el) return openCart();
 
-    // 1) fade out du contenu header
     setCartPhase("opening");
     await wait(220);
-
-    // 2) morph FLIP (openCart pendant mutate)
     await flipAnimate(el, () => openCart());
-
-    // 3) fade in du contenu panier
     setCartPhase("open");
   };
 
@@ -103,74 +188,80 @@ const Header = () => {
     const el = headerCardRef.current;
     if (!el) return closeCart();
 
-    // 1) fade out du contenu panier
     setCartPhase("closing");
     await wait(220);
-
-    // 2) morph FLIP (closeCart pendant mutate)
     await flipAnimate(el, () => closeCart());
-
-    // 3) fade in du contenu header
     setCartPhase("closed");
   };
 
   const headerHidden =
-    cartPhase === "opening" || cartPhase === "open" || cartPhase === "closing";
+    cartPhase === "opening" ||
+    cartPhase === "open" ||
+    cartPhase === "closing" ||
+    searchPhase === "opening" ||
+    searchPhase === "open" ||
+    searchPhase === "closing";
 
   const cartVisible = cartPhase === "open";
+  const searchVisible = searchPhase === "open";
 
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // URL courante (path + query)
   const currentUrl = `${pathname}${searchParams?.toString() ? `?${searchParams.toString()}` : ""}`;
 
   const safePush = useCallback(
     (to: string, opts?: { compareQuery?: boolean }) => {
-
       setIsMenuOpen(false);
       setIsSearchOpen(false);
 
-      // compareQuery: false => compare uniquement le pathname (souvent ce que tu veux pour /shop, /about, /)
       const compareQuery = opts?.compareQuery ?? false;
-
       const cur = compareQuery ? currentUrl : pathname;
       const target = compareQuery ? to : to.split("?")[0];
 
-      if (cur === target) return; // ✅ déjà dessus → pas de navigation
+      if (cur === target) return;
 
-      router.push(to, { onTransitionReady: slideInOut });
+      router.push(to, { onTransitionReady: zoomTransition });
     },
     [router, pathname, currentUrl]
   );
 
+  const onSelectSearchResult = useCallback(
+    async (slug: string) => {
+      await onCloseSearch();
+      router.push(`/product/${slug}`, { onTransitionReady: zoomTransition });
+    },
+    [router]
+  );
 
   return (
-    <header className={`${styles.mainContainer} ${cartOpen ? styles.mainContainerCart : ""}`}>
-      {/* overlay */}
+    <header
+      className={`${styles.mainContainer} ${panelOpen ? styles.mainContainerCart : ""}`}
+    >
       <div
-        className={`${styles.overlay} ${cartOpen ? styles.overlayOpen : ""}`}
-        onMouseDown={onCloseCart}
+        className={`${styles.overlay} ${panelOpen ? styles.overlayOpen : ""}`}
+        onMouseDown={() => {
+          if (cartOpen) onCloseCart();
+          else if (searchModalOpen) onCloseSearch();
+        }}
         aria-hidden
       />
 
       <div
-        className={`${styles.header} ${cartOpen ? styles.cartOpen : ""}`}
+        className={`${styles.header} ${cartOpen ? styles.cartOpen : ""} ${searchModalOpen ? styles.searchOpenPanel : ""}`}
         ref={(node) => {
           headerCardRef.current = node;
         }}
       >
-        {/* ===== HEADER CONTENT (fade out first) ===== */}
         <div
           className={`${styles.headerInner} ${headerHidden ? styles.headerInnerHidden : ""}`}
-          aria-hidden={cartOpen}
+          aria-hidden={panelOpen}
         >
-          {/* Desktop links */}
           <div className={styles.links}>
             <Link
               onClick={(e) => {
                 e.preventDefault();
-                safePush("/shop"); // compare pathname only
+                safePush("/shop");
               }}
               scroll={false}
               href="/shop"
@@ -181,7 +272,7 @@ const Header = () => {
             <Link
               onClick={(e) => {
                 e.preventDefault();
-                safePush("/about"); // compare pathname only
+                safePush("/about");
               }}
               scroll={false}
               href="/about"
@@ -193,7 +284,7 @@ const Header = () => {
           <Link
             onClick={(e) => {
               e.preventDefault();
-              safePush("/"); // compare pathname only
+              safePush("/");
             }}
             scroll={false}
             href="/"
@@ -234,7 +325,6 @@ const Header = () => {
             </button>
           </div>
 
-          {/* Mobile */}
           <div className={styles.mobileRight}>
             <button
               type="button"
@@ -286,7 +376,6 @@ const Header = () => {
           </div>
         </div>
 
-        {/* ===== CART CONTENT (fade in after FLIP) ===== */}
         <div
           className={`${styles.cartInner} ${cartVisible ? styles.cartInnerVisible : ""}`}
           aria-hidden={!cartOpen}
@@ -305,29 +394,62 @@ const Header = () => {
             </>
           )}
         </div>
+
+        <div
+          className={`${styles.searchInner} ${searchVisible ? styles.searchInnerVisible : ""}`}
+          aria-hidden={!searchModalOpen}
+        >
+          {searchModalOpen && (
+            <>
+              <button
+                type="button"
+                className={styles.searchClose}
+                onClick={onCloseSearch}
+                aria-label="Fermer la recherche"
+              >
+                ✕
+              </button>
+
+              <SearchPanel
+                query={submittedQuery}
+                results={searchResults}
+                onSelect={onSelectSearchResult}
+              />
+            </>
+          )}
+        </div>
       </div>
 
-      {/* menu mobile (tu peux le garder, caché quand cartOpen via css) */}
       <div className={`${styles.mobileMenu} ${isMenuOpen ? styles.openMenu : ""}`}>
-        <Link scroll={false} href="/shop" onClick={(e) => {
-          e.preventDefault();
-          safePush("/shop"); // compare pathname only
-        }}>
+        <Link
+          scroll={false}
+          href="/shop"
+          onClick={(e) => {
+            e.preventDefault();
+            safePush("/shop");
+          }}
+        >
           <p>Au menu</p>
         </Link>
-        <Link scroll={false} href="/about" onClick={(e) => {
-          e.preventDefault();
-          safePush("/about"); // compare pathname only
-        }}>
+
+        <Link
+          scroll={false}
+          href="/about"
+          onClick={(e) => {
+            e.preventDefault();
+            safePush("/about");
+          }}
+        >
           <p>À propos</p>
         </Link>
+
         <RoundButton
           href="/auth"
           text="Connexion"
           variant="secondary"
           onClick={(e) => {
             e.preventDefault();
-            safePush("/auth"); // compare pathname only
+            safePush("/auth");
           }}
         />
       </div>
